@@ -1,5 +1,43 @@
 import Phaser from "phaser";
 
+var player;
+var stars;
+var bombs;
+var cursors;
+var score = 0;
+var scoreText;
+	
+var paddle = {
+	width: 20,
+	height: 100,
+	sprite: 'paddle',
+}
+	
+class main extends Phaser.Scene
+{
+	constructor()
+	{
+		super();
+	}
+	
+	preload ()
+	{
+		this.load.image('sky', './public/assets/sky.jpeg');
+		// this.load.image(paddle.sprite, './public/assets/paddle.png');
+		// this.load.image('ball', './public/assets/ball.png');
+		// this.objects = {};
+	}
+	
+	create ()
+	{
+		this.add.image(40, 300, 'sky');
+	}
+	
+	update ()
+	{
+	}
+}
+
 var config = {
 	type: Phaser.AUTO,
 	width: 800,
@@ -22,107 +60,3 @@ var config = {
 };
 
 const game = new Phaser.Game(config);
-
-var player;
-var stars;
-var bombs;
-var cursors;
-var score = 0;
-var scoreText;
-
-var paddle = {
-	width: 20,
-	height: 100,
-	sprite: 'paddle',
-}
-
-var player = {
-	x: 20,
-	y: config.height/2,
-	lostPoint: false,
-}
-
-var AI = {
-	x: config.width - 100,
-	y: config.height/2,
-	points: points,
-	lostPoint: false,
-}
-
-function preload ()
-{
-	this.load.image(paddle.sprite, 'assets/paddle.png');
-}
-
-function create ()
-{
-	this.setTint(0x000000);
-	this.add.image(400, 300, 'sky');
-	
-	platforms = this.physics.add.group();
-	platforms.create(player.x, player.y, 'paddle');
-	
-}
-
-function update ()
-{
-	if (cursors.left.isDown)
-	{
-		player.setVelocityX(-160);
-
-		player.anims.play('left', true);
-	}
-	else if (cursors.right.isDown)
-	{
-		player.setVelocityX(160);
-
-		player.anims.play('right', true);
-	}
-	else
-	{
-		player.setVelocityX(0);
-
-		player.anims.play('turn');
-	}
-
-	if (cursors.up.isDown && player.body.touching.down)
-	{
-		player.setVelocityY(-330);
-   }
-}
-
-function collectStar (player, star)
-{
-    star.disableBody(true, true);
-
-    score += 10;
-    scoreText.setText('Score: ' + score);
-
-    if (stars.countActive(true) === 0)
-    {
-        stars.children.iterate(function (child) {
-
-            child.enableBody(true, child.x, 0, true, true);
-
-        });
-
-        var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
-
-        var bomb = bombs.create(x, 16, 'bomb');
-        bomb.setBounce(1);
-        bomb.setCollideWorldBounds(true);
-        bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
-
-    }
-}
-
-function hitBomb (player, bomb)
-{
-	this.physics.pause();
-
-	player.setTint(0xff0000);
-
-	player.anims.play('turn');
-
-	gameOver = true;
-}
