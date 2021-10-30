@@ -4,6 +4,8 @@ var config = {
 	type: Phaser.AUTO,
 	width: 800,
 	height: 600,
+	backgroundColor: 0x000000,
+	
 	physics: {
 		 default: 'arcade',
 		 arcade: {
@@ -11,6 +13,7 @@ var config = {
 			  debug: false
 		 }
 	},
+	
 	scene: {
 		 preload: preload,
 		 create: create,
@@ -20,25 +23,44 @@ var config = {
 
 const game = new Phaser.Game(config);
 
-game.scene.add()
 var player;
 var stars;
 var bombs;
-var platforms;
 var cursors;
 var score = 0;
 var scoreText;
 
+var paddle = {
+	width: 20,
+	height: 100,
+	sprite: 'paddle',
+}
+
+var player = {
+	x: 20,
+	y: config.height/2,
+	lostPoint: false,
+}
+
+var AI = {
+	x: config.width - 100,
+	y: config.height/2,
+	points: points,
+	lostPoint: false,
+}
+
 function preload ()
 {
-	this.load.image('sky', 'assets/sky.png');
-	this.load.image('paddle', 'assets/paddle.png');
+	this.load.image(paddle.sprite, 'assets/paddle.png');
 }
 
 function create ()
 {
+	this.setTint(0x000000);
 	this.add.image(400, 300, 'sky');
-	this.add.image(100, 100, '')
+	
+	platforms = this.physics.add.group();
+	platforms.create(player.x, player.y, 'paddle');
 	
 }
 
