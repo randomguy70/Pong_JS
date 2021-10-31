@@ -47,9 +47,12 @@ function create()
 	ai.setCollideWorldBounds(true);
 	ball.setCollideWorldBounds(true);
 	
-	ball.setBounce(0, 0);
 	ball.setVelocityX(300, 300);
 	ball.setVelocityY(300);
+	ball.setBounce(1, 1);
+	
+	this.physics.add.collider(player, ball);
+	this.physics.add.collider(ball, ai);
 	
 	cursor = this.input.keyboard.createCursorKeys();
 }
