@@ -45,6 +45,11 @@ function create()
 	
 	player.setCollideWorldBounds(true);
 	ai.setCollideWorldBounds(true);
+	ball.setCollideWorldBounds(true);
+	
+	ball.setBounce(0, 0);
+	ball.setVelocityX(300, 300);
+	ball.setVelocityY(300);
 	
 	cursor = this.input.keyboard.createCursorKeys();
 }
