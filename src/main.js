@@ -1,43 +1,3 @@
-import Phaser from "phaser";
-
-var player;
-var stars;
-var bombs;
-var cursors;
-var score = 0;
-var scoreText;
-	
-var paddle = {
-	width: 20,
-	height: 100,
-	sprite: 'paddle',
-}
-	
-class main extends Phaser.Scene
-{
-	constructor()
-	{
-		super();
-	}
-	
-	preload ()
-	{
-		this.load.image('sky', './public/assets/sky.jpeg');
-		// this.load.image(paddle.sprite, './public/assets/paddle.png');
-		// this.load.image('ball', './public/assets/ball.png');
-		// this.objects = {};
-	}
-	
-	create ()
-	{
-		this.add.image(40, 300, 'sky');
-	}
-	
-	update ()
-	{
-	}
-}
-
 var config = {
 	type: Phaser.AUTO,
 	width: 800,
@@ -47,7 +7,7 @@ var config = {
 	physics: {
 		 default: 'arcade',
 		 arcade: {
-			  gravity: { y: 300 },
+			  gravity: { y: 0, x: 0 },
 			  debug: false
 		 }
 	},
@@ -59,4 +19,58 @@ var config = {
 	}
 };
 
-const game = new Phaser.Game(config);
+var paddle = {
+	width: 20,
+	height: 100,
+	sprite: 'paddle',
+}
+
+var game = new Phaser.Game(config);
+
+var player;
+var ai;
+var ball;
+
+function preload()
+{
+	this.load.image('ball', '/public/assets/ball.png');
+	this.load.image('paddle', '/public/assets/paddle.png');
+}
+
+function create()
+{
+	player = this.physics.add.sprite(100, 100, 'paddle');
+	ai = this.physics.add.sprite(700, 100, 'paddle');
+	ball = this.physics.add.sprite(400, 100, 'ball');
+	
+	player.setCollideWorldBounds(true);
+	ai.setCollideWorldBounds(true);
+	
+	cursor = this.input.keyboard.createCursorKeys();
+}
+
+function update()
+{
+	if(cursor.up.isDown)
+	{
+		player.setVelocityY(-300);
+	}
+	else if(cursor.down.isDown)
+	{
+		player.setVelocityY(300);
+	}
+	else
+	{
+		player.setVelocityY(0);
+	}
+}
+
+function updatePlayer()
+{
+	
+}
+
+function updateAI()
+{
+	
+}
