@@ -31,8 +31,19 @@ var player;
 var ai;
 var ball;
 
-var velocityX = 300;
-var velocityY = 300;
+// player properties
+var playerStartingX = 100;
+var playerStartingY = 100;
+var playerVelocityX = 0;
+var playerVelocityY = 300;
+
+// ai properties
+var aiStartingX   = 400;
+var aiStartingY   = 100;
+var aiVelocityX   = 0;
+var aiVelocityY   = 300;
+var ballVelocityX = 300;
+var ballVelocityY = 300;
 
 var playerScoreText;
 var aiScoreText;
