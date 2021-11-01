@@ -45,11 +45,13 @@ function preload()
 
 function create()
 {
-	player = this.physics.add.sprite(100, 100, 'paddle');
-	ai = this.physics.add.sprite(700, 100, 'paddle');
+	platforms = this.physics.add.group();
+	
+	player = platforms.create(100, 100, 'paddle');
+	ai = platforms.create(700, 100, 'paddle');
+	
 	ball = this.physics.add.sprite(400, 100, 'ball');
 	
-	platforms = this.physics.add.group();
 	player.setCollideWorldBounds(true);
 	ai.setCollideWorldBounds(true);
 	ball.setCollideWorldBounds(true);
@@ -92,8 +94,6 @@ function hitPlayer()
 		ball.setVelocityY(velocityY);
 	}
 	
-	player.setVelocityX(0);
-	
 }
 
 function hitAI()
@@ -108,5 +108,4 @@ function hitAI()
   	  	ball.setVelocityY(velocityY);
   	}
 	
-  	ai.setVelocityX(-2);
 }
