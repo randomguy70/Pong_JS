@@ -34,6 +34,7 @@ var ball;
 // player properties
 var playerStartingX = 100;
 var playerStartingY = 100;
+
 var playerVelocityX = 0;
 var playerVelocityY = 300;
 
@@ -58,17 +59,17 @@ function create()
 {
 	platforms = this.physics.add.group();
 	
-	player = platforms.create(100, 100, 'paddle');
-	ai = platforms.create(700, 100, 'paddle');
+	player = platforms.create(playerStartingX, playerStartingY, 'paddle');
+	ai = platforms.create(aiStartingX, aiStartingY, 'paddle');
 	
-	ball = this.physics.add.sprite(400, 100, 'ball');
+	ball = this.physics.add.sprite(aiStartingX, aiStartingY, 'ball');
 	
 	player.setCollideWorldBounds(true);
 	ai.setCollideWorldBounds(true);
 	ball.setCollideWorldBounds(true);
 	
-	ball.setVelocityX(velocityX);
-	ball.setVelocityY(velocityY);
+	ball.setVelocityX(playerVelocityX);
+	ball.setVelocityY(ballVelocityY);
 	ball.setBounce(1);
 	
 	this.physics.add.collider(player, ball, hitPlayer);
@@ -81,11 +82,11 @@ function update()
 {
 	if(cursor.up.isDown)
 	{
-		player.setVelocityY(-300);
+		player.setVelocityY(-playerVelocityY);
 	}
 	else if(cursor.down.isDown)
 	{
-		player.setVelocityY(300);
+		player.setVelocityY(playerVelocityY);
 	}
 	else
 	{
@@ -95,28 +96,28 @@ function update()
 
 function hitPlayer()
 {
-	velocityX *= -1;
+	ballVelocityX *= -1;
 		
-	ball.setVelocityX(velocityX);
+	ball.setVelocityX(ballVelocityX);
 	
 	if(velocityY<0)
 	{
-		velocityY *= -1
-		ball.setVelocityY(velocityY);
+		ballVelocityY *= -1
+		ball.setVelocityY(ballVelocityY);
 	}
 	
 }
 
 function hitAI()
 {
-  	velocityX *= -1;
+  	aiVelocityX *= -1;
 	
-	ball.setVelocityX(velocityX);
+	ball.setVelocityX(aiVelocityX);
 	
-  	if(velocityY<0)
+  	if(aiVelocityY<0)
   	{
-  	  	velocityY *= -1
-  	  	ball.setVelocityY(velocityY);
+  	  	aiVelocityY *= -1
+  	  	ball.setVelocityY(aiVelocityY);
   	}
 	
 }
