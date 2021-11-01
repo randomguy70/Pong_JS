@@ -31,6 +31,12 @@ var player;
 var ai;
 var ball;
 
+var velocityX = 300;
+var velocityY = 300;
+
+var playerScoreText;
+var aiScoreText;
+
 function preload()
 {
 	this.load.image('ball', '/public/assets/ball.png');
@@ -43,16 +49,17 @@ function create()
 	ai = this.physics.add.sprite(700, 100, 'paddle');
 	ball = this.physics.add.sprite(400, 100, 'ball');
 	
+	platforms = this.physics.add.group();
 	player.setCollideWorldBounds(true);
 	ai.setCollideWorldBounds(true);
 	ball.setCollideWorldBounds(true);
 	
-	ball.setVelocityX(300, 300);
-	ball.setVelocityY(300);
-	ball.setBounce(1, 1);
+	ball.setVelocityX(velocityX);
+	ball.setVelocityY(velocityY);
+	ball.setBounce(1);
 	
-	this.physics.add.collider(player, ball);
-	this.physics.add.collider(ball, ai);
+	this.physics.add.collider(player, ball, hitPlayer);
+	this.physics.add.collider(ball, ai, hitAI);
 	
 	cursor = this.input.keyboard.createCursorKeys();
 }
@@ -73,12 +80,33 @@ function update()
 	}
 }
 
-function updatePlayer()
+function hitPlayer()
 {
+	velocityX *= -1;
+		
+	ball.setVelocityX(velocityX);
+	
+	if(velocityY<0)
+	{
+		velocityY *= -1
+		ball.setVelocityY(velocityY);
+	}
+	
+	player.setVelocityX(0);
 	
 }
 
-function updateAI()
+function hitAI()
 {
+  	velocityX *= -1;
 	
+	ball.setVelocityX(velocityX);
+	
+  	if(velocityY<0)
+  	{
+  	  	velocityY *= -1
+  	  	ball.setVelocityY(velocityY);
+  	}
+	
+  	ai.setVelocityX(-2);
 }
