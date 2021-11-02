@@ -5,11 +5,11 @@ var config = {
 	backgroundColor: 0x000000,
 	
 	physics: {
-		 default: 'arcade',
-		 arcade: {
-			  gravity: { y: 0, x: 0 },
-			  debug: false
-		 }
+		default: 'arcade',
+		arcade: {
+				gravity: { y: 0, x: 0 },
+				debug: false
+		}
 	},
 	
 	scene: {
@@ -24,7 +24,6 @@ var game = new Phaser.Game(config);
 var player;
 var ai;
 var ball;
-var platforms;
 var cursors;
 
 var paddle = {
@@ -62,17 +61,16 @@ function preload()
 	this.load.image('paddle', '/public/assets/paddle.png');
 }
 
-var platform;
 function create()
 {
-	player = this.physics.add.image(200, 300, 'paddle').setImmovable();
-	ai = this.physics.add.sprite(aiConfig.startingX, aiConfig.startingY, 'paddle').setOrigin(0, 0);
+	player = this.physics.add.sprite(playerConfig.startingX, playerConfig.startingY, 'paddle').setOrigin(0, 0).setImmovable();
+	ai = this.physics.add.sprite(aiConfig.startingX, aiConfig.startingY, 'paddle').setOrigin(0, 0).setImmovable();
 	ball = this.physics.add.sprite(ballConfig.startingX, ballConfig.startingY, 'ball').setOrigin(0, 0);
 	
 	player.setCollideWorldBounds(true);
 	ai.setCollideWorldBounds(true);
 	ball.setCollideWorldBounds(true);
-		
+	
 	ball.setVelocityX(ballConfig.velocityX);
 	ball.setVelocityY(ballConfig.velocityY);
 	ball.setBounce(1);
@@ -87,11 +85,11 @@ function update()
 {
 	if(cursors.up.isDown)
 	{
-		player.setVelocityY(-playerConfig.velocityY);
+		player.setVelocityY(-300);
 	}
 	else if(cursors.down.isDown)
 	{
-		player.setVelocityY(playerConfig.velocityY);
+		player.setVelocityY(300);
 	}
 	else
 	{
