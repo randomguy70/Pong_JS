@@ -63,29 +63,25 @@ function preload()
 }
 
 function create()
-{
-	this.platforms = this.add.physicsGroup();
+{	
+	player = this.physics.add.sprite(playerConfig.startingX, playerConfig.startingY, 'paddle').setOrigin(0, 0);
+	ai = this.physics.add.sprite(aiConfig.startingX, aiConfig.startingY, 'paddle').setOrigin(0, 0);
+	ball = this.physics.add.sprite(ballConfig.startingX, ballConfig.startingY, 'ball').setOrigin(0, 0);
 	
-	player = this.platforms.create(this, playerConfig.startingX, playerConfig.startingY, 'paddle');
-	ai = this.platforms.create(this, aiConfig.startingX, aiConfig.startingY, 'paddle');
+	player.body.immovable = true;
+	ai.body.immovable = true;
 	
-	ball = this.physics.add.sprite(ballConfig.startingX, ballConfig.startingY, 'ball');
-	
-	this.platforms.setAll('body.allowGravity', false);
-	this.platforms.setAll('body.immovable', true);
-	this.platforms.setAll('body.velocity.y', 0);
-
 	player.setCollideWorldBounds(true);
 	ai.setCollideWorldBounds(true);
 	ball.setCollideWorldBounds(true);
-	
+		
 	ball.setVelocityX(ballConfig.velocityX);
 	ball.setVelocityY(ballConfig.velocityY);
 	ball.setBounce(1);
-	// 
-	this.physics.add.collider(player, ball, hitPlayer);
-	this.physics.add.collider(ball, ai, hitAI);
-	// 
+	
+	this.physics.add.collider(player, ball);
+	this.physics.add.collider(ball, ai);
+	
 	cursor = this.input.keyboard.createCursorKeys();
 }
 
@@ -93,42 +89,14 @@ function update()
 {
 	if(cursor.up.isDown)
 	{
-		player.setVelocityY(-playerVelocityY);
+		player.setVelocityY(-playerConfig.velocityY);
 	}
 	else if(cursor.down.isDown)
 	{
-		player.setVelocityY(playerVelocityY);
+		player.setVelocityY(playerConfig.velocityY);
 	}
 	else
 	{
 		player.setVelocityY(0);
 	}
-}
-
-function hitPlayer()
-{
-	ballConfig.velocityX *= -1;
-	
-	ball.setVelocityX(ballConfig.velocityX);
-	
-	if(velocityY<0)
-	{
-		ballConfig.velocityY *= -1
-		ball.setVelocityY(ballConfig.velocityY);
-	}
-	
-}
-
-function hitAI()
-{
-  	aiConfig.velocityX *= -1;
-	
-	ball.setVelocityX(aiConfig.velocityX);
-	
-  	if(aiConfig.velocityY<0)
-  	{
-		aiConfig.velocityY *= -1
-  	  	ball.setVelocityY(aiConfig.velocityY);
-  	}
-	
 }
