@@ -1,3 +1,5 @@
+import MovingPlatform from "./classes/platforms";
+
 var config = {
 	type: Phaser.AUTO,
 	width: 800,
@@ -31,23 +33,28 @@ var player;
 var ai;
 var ball;
 
-// player properties
-var playerStartingX = 100;
-var playerStartingY = 100;
+var playerConfig = {
+	startingX: 50,
+	startingY: (config.height / 2) - (paddle.height / 2),
+	velocityX: 0,
+	velocityY: 0,
+	scoreText: '',
+}
 
-var playerVelocityX = 0;
-var playerVelocityY = 300;
+var aiConfig = {
+	startingX: config.width - (paddle.width + 50),
+	startingY: (config.height / 2) - (paddle.height / 2),
+	velocityX: 0,
+	velocityY: 0,
+}
 
-// ai properties
-var aiStartingX   = 400;
-var aiStartingY   = 100;
-var aiVelocityX   = 0;
-var aiVelocityY   = 300;
-var ballVelocityX = 300;
-var ballVelocityY = 300;
-
-var playerScoreText;
-var aiScoreText;
+var ballConfig = {
+	velocityX: 300,
+	velocityY: 300,
+	
+	startingX: (config.width / 2) - (30 / 2),
+	startingY: (config.height / 2) - (30 / 2),
+}
 
 function preload()
 {
@@ -59,17 +66,21 @@ function create()
 {
 	platforms = this.physics.add.group();
 	
-	player = platforms.create(playerStartingX, playerStartingY, 'paddle');
-	ai = platforms.create(aiStartingX, aiStartingY, 'paddle');
+	player = new MovingPlatform(this, playerConfig.velocityX, playerConfig.startingY, 'paddle', {
+		isStatic: true
+	})
+	ai = new MovingPlatform(this, aiConfig.startingX, aiConfig.startingY, 'paddle', {
+		isStatic: true
+	})
 	
-	ball = this.physics.add.sprite(aiStartingX, aiStartingY, 'ball');
+	ball = this.physics.add.sprite(ballConfig.startingX, ballConfig.startingY, 'ball');
 	
 	player.setCollideWorldBounds(true);
 	ai.setCollideWorldBounds(true);
 	ball.setCollideWorldBounds(true);
 	
-	ball.setVelocityX(playerVelocityX);
-	ball.setVelocityY(ballVelocityY);
+	ball.setVelocityX(ballConfig.velocityX);
+	ball.setVelocityY(ballConfig.velocityY);
 	ball.setBounce(1);
 	
 	this.physics.add.collider(player, ball, hitPlayer);
