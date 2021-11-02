@@ -1,5 +1,3 @@
-// import MovingPlatform from "./classes/platforms";
-
 var config = {
 	type: Phaser.AUTO,
 	width: 800,
@@ -26,6 +24,7 @@ var game = new Phaser.Game(config);
 var player;
 var ai;
 var ball;
+var platforms;
 
 var paddle = {
 	width: 20,
@@ -68,13 +67,11 @@ function create()
 	ai = this.physics.add.sprite(aiConfig.startingX, aiConfig.startingY, 'paddle').setOrigin(0, 0);
 	ball = this.physics.add.sprite(ballConfig.startingX, ballConfig.startingY, 'ball').setOrigin(0, 0);
 	
-	player.body.immovable = true;
-	ai.body.immovable = true;
-	
 	player.setCollideWorldBounds(true);
 	ai.setCollideWorldBounds(true);
 	ball.setCollideWorldBounds(true);
-		
+	
+	player.setVelocityX(100);
 	ball.setVelocityX(ballConfig.velocityX);
 	ball.setVelocityY(ballConfig.velocityY);
 	ball.setBounce(1);
