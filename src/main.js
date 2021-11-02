@@ -25,6 +25,7 @@ var player;
 var ai;
 var ball;
 var platforms;
+var cursors;
 
 var paddle = {
 	width: 20,
@@ -61,17 +62,17 @@ function preload()
 	this.load.image('paddle', '/public/assets/paddle.png');
 }
 
+var platform;
 function create()
-{	
-	player = this.physics.add.sprite(playerConfig.startingX, playerConfig.startingY, 'paddle').setOrigin(0, 0);
+{
+	player = this.physics.add.image(200, 300, 'paddle').setImmovable();
 	ai = this.physics.add.sprite(aiConfig.startingX, aiConfig.startingY, 'paddle').setOrigin(0, 0);
 	ball = this.physics.add.sprite(ballConfig.startingX, ballConfig.startingY, 'ball').setOrigin(0, 0);
 	
 	player.setCollideWorldBounds(true);
 	ai.setCollideWorldBounds(true);
 	ball.setCollideWorldBounds(true);
-	
-	player.setVelocityX(100);
+		
 	ball.setVelocityX(ballConfig.velocityX);
 	ball.setVelocityY(ballConfig.velocityY);
 	ball.setBounce(1);
@@ -79,16 +80,16 @@ function create()
 	this.physics.add.collider(player, ball);
 	this.physics.add.collider(ball, ai);
 	
-	cursor = this.input.keyboard.createCursorKeys();
+	cursors = this.input.keyboard.createCursorKeys();
 }
 
 function update()
 {
-	if(cursor.up.isDown)
+	if(cursors.up.isDown)
 	{
 		player.setVelocityY(-playerConfig.velocityY);
 	}
-	else if(cursor.down.isDown)
+	else if(cursors.down.isDown)
 	{
 		player.setVelocityY(playerConfig.velocityY);
 	}
