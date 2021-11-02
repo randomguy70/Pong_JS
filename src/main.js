@@ -24,6 +24,10 @@ var game = new Phaser.Game(config);
 var player;
 var ai;
 var ball;
+
+var playerScore = 0;
+var aiScore = 0;
+
 var cursors;
 
 var paddle = {
@@ -95,4 +99,6 @@ function update()
 	{
 		player.setVelocityY(0);
 	}
+	
+	
 }
