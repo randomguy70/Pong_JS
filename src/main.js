@@ -1,4 +1,4 @@
-import MovingPlatform from "./classes/platforms";
+// import MovingPlatform from "./classes/platforms";
 
 var config = {
 	type: Phaser.AUTO,
@@ -21,17 +21,17 @@ var config = {
 	}
 };
 
-var paddle = {
-	width: 20,
-	height: 100,
-	sprite: 'paddle',
-}
-
 var game = new Phaser.Game(config);
 
 var player;
 var ai;
 var ball;
+
+var paddle = {
+	width: 20,
+	height: 100,
+	sprite: 'paddle',
+}
 
 var playerConfig = {
 	startingX: 50,
@@ -64,17 +64,17 @@ function preload()
 
 function create()
 {
-	platforms = this.physics.add.group();
+	this.platforms = this.add.physicsGroup();
 	
-	player = new MovingPlatform(this, playerConfig.velocityX, playerConfig.startingY, 'paddle', {
-		isStatic: true
-	})
-	ai = new MovingPlatform(this, aiConfig.startingX, aiConfig.startingY, 'paddle', {
-		isStatic: true
-	})
+	player = this.platforms.create(this, playerConfig.startingX, playerConfig.startingY, 'paddle');
+	ai = this.platforms.create(this, aiConfig.startingX, aiConfig.startingY, 'paddle');
 	
 	ball = this.physics.add.sprite(ballConfig.startingX, ballConfig.startingY, 'ball');
 	
+	this.platforms.setAll('body.allowGravity', false);
+	this.platforms.setAll('body.immovable', true);
+	this.platforms.setAll('body.velocity.y', 0);
+
 	player.setCollideWorldBounds(true);
 	ai.setCollideWorldBounds(true);
 	ball.setCollideWorldBounds(true);
@@ -82,10 +82,10 @@ function create()
 	ball.setVelocityX(ballConfig.velocityX);
 	ball.setVelocityY(ballConfig.velocityY);
 	ball.setBounce(1);
-	
+	// 
 	this.physics.add.collider(player, ball, hitPlayer);
 	this.physics.add.collider(ball, ai, hitAI);
-	
+	// 
 	cursor = this.input.keyboard.createCursorKeys();
 }
 
@@ -107,28 +107,28 @@ function update()
 
 function hitPlayer()
 {
-	ballVelocityX *= -1;
-		
-	ball.setVelocityX(ballVelocityX);
+	ballConfig.velocityX *= -1;
+	
+	ball.setVelocityX(ballConfig.velocityX);
 	
 	if(velocityY<0)
 	{
-		ballVelocityY *= -1
-		ball.setVelocityY(ballVelocityY);
+		ballConfig.velocityY *= -1
+		ball.setVelocityY(ballConfig.velocityY);
 	}
 	
 }
 
 function hitAI()
 {
-  	aiVelocityX *= -1;
+  	aiConfig.velocityX *= -1;
 	
-	ball.setVelocityX(aiVelocityX);
+	ball.setVelocityX(aiConfig.velocityX);
 	
-  	if(aiVelocityY<0)
+  	if(aiConfig.velocityY<0)
   	{
-  	  	aiVelocityY *= -1
-  	  	ball.setVelocityY(aiVelocityY);
+		aiConfig.velocityY *= -1
+  	  	ball.setVelocityY(aiConfig.velocityY);
   	}
 	
 }

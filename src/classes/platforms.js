@@ -17,6 +17,6 @@ export default class MovingPlatform extends Phaser.Physics.Matter.Image
 	
 	moveUp()
 	{
-		this.setVelocityY();
+		this.setVelocityY(100);
 	}
 }
