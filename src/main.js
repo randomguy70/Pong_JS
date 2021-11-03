@@ -116,14 +116,16 @@ function updatePlayer()
 }
 
 function updateAI()
-{	
+{
+	let difference = Math.abs(ball.y - ai.y);
+	
 	if(ball.y > ai.y)
 	{
-		ai.setVelocityY(300);
+		ai.setVelocityY(7*difference);
 	}
 	else if(ball.y < ai.y)
 	{
-		ai.setVelocityY(-300);
+		ai.setVelocityY(-7*difference);
 	}
 	else
 	{
@@ -136,6 +138,8 @@ function checkForScore()
 	if(ball.x <= 30)
 	{
 		aiScore++;
+		aiScoreText.setText(aiScore);
+		
 		ball.x = ballConfig.startingX;
 		ball.y = ballConfig.startingY;
 		ball.setVelocityX(-ballConfig.velocityX);
@@ -143,7 +147,10 @@ function checkForScore()
 	}
 	if(ball.x >= config.width - 10)
 	{
+		
 		playerScore++;
+		playerScoreText.setText(playerScore);
+		
 		ball.x = ballConfig.startingX;
 		ball.y = ballConfig.startingY;
 		ball.setVelocityX(ballConfig.velocityX);
