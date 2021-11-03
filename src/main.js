@@ -1,7 +1,7 @@
 var config = {
 	type: Phaser.AUTO,
-	width: 800,
-	height: 600,
+	width: 900,
+	height: 700,
 	backgroundColor: 0x000000,
 	
 	physics: {
@@ -37,7 +37,7 @@ var paddle = {
 }
 
 var playerConfig = {
-	startingX: 50,
+	startingX: 20,
 	startingY: (config.height / 2) - (paddle.height / 2),
 	velocityX: 0,
 	velocityY: 0,
@@ -45,7 +45,7 @@ var playerConfig = {
 }
 
 var aiConfig = {
-	startingX: config.width - (paddle.width + 50),
+	startingX: config.width - (20 + paddle.width),
 	startingY: (config.height / 2) - (paddle.height / 2),
 	velocityX: 0,
 	velocityY: 0,
@@ -87,6 +87,12 @@ function create()
 
 function update()
 {
+	updatePlayer();
+	updateAI();
+}
+
+function updatePlayer()
+{
 	if(cursors.up.isDown)
 	{
 		player.setVelocityY(-300);
@@ -99,6 +105,20 @@ function update()
 	{
 		player.setVelocityY(0);
 	}
-	
-	
+}
+
+function updateAI()
+{	
+	if(ball.y > ai.y)
+	{
+		ai.setVelocityY(200);
+	}
+	else if(ball.y < ai.y)
+	{
+		ai.setVelocityY(-200);
+	}
+	else
+	{
+		ai.setVelocityY(0);
+	}
 }
