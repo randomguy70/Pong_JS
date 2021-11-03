@@ -117,15 +117,15 @@ function updatePlayer()
 
 function updateAI()
 {
-	let difference = Math.abs(ball.y - ai.y);
+	let difference = Math.sqrt(Math.abs(ball.y - ai.y)) + 4;
 	
 	if(ball.y > ai.y)
 	{
-		ai.setVelocityY(7*difference);
+		ai.setVelocityY(26*difference);
 	}
 	else if(ball.y < ai.y)
 	{
-		ai.setVelocityY(-7*difference);
+		ai.setVelocityY(-26*difference);
 	}
 	else
 	{
