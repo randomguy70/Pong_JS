@@ -1,7 +1,7 @@
 var config = {
 	type: Phaser.AUTO,
 	width: 800,
-	height: 700,
+	height: 600,
 	backgroundColor: 0x000000,
 	
 	physics: {
@@ -138,7 +138,7 @@ function checkForScore()
 		aiScore++;
 		ball.x = ballConfig.startingX;
 		ball.y = ballConfig.startingY;
-		ball.setVelocityX(ballConfig.velocityX);
+		ball.setVelocityX(-ballConfig.velocityX);
 		ball.setVelocityY(ballConfig.velocityY);
 	}
 	if(ball.x >= config.width - 10)
@@ -147,7 +147,7 @@ function checkForScore()
 		ball.x = ballConfig.startingX;
 		ball.y = ballConfig.startingY;
 		ball.setVelocityX(ballConfig.velocityX);
-		ball.setVelocityY(ballConfig.velocityY);
+		ball.setVelocityY(-ballConfig.velocityY);
 	}
 }
 
