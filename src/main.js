@@ -50,7 +50,7 @@ var playerConfig = {
 }
 
 var aiConfig = {
-	startingX: config.width - (20 + paddle.width),
+	startingX: config.width - (50),
 	startingY: (config.height / 2) - (paddle.height / 2),
 	velocityX: 0,
 	velocityY: 0,
@@ -72,6 +72,9 @@ function preload()
 
 function create()
 {
+	var r1 = this.add.rectangle(0, 0, 20, config.height, 0xC0C0C0).setOrigin(0, 0);
+	var r2 = this.add.rectangle(config.width - 20, 0, 20, config.height, 0xC0C0C0).setOrigin(0, 0);
+	
 	player = this.physics.add.sprite(playerConfig.startingX, playerConfig.startingY, 'paddle').setOrigin(0, 0).setImmovable();
 	ai = this.physics.add.sprite(aiConfig.startingX, aiConfig.startingY, 'paddle').setOrigin(0, 0).setImmovable();
 	ball = this.physics.add.sprite(ballConfig.startingX, ballConfig.startingY, 'ball').setOrigin(0, 0);
@@ -135,7 +138,7 @@ function updateAI()
 
 function checkForScore()
 {
-	if(ball.x <= 30)
+	if(ball.x <= 20)
 	{
 		aiScore++;
 		aiScoreText.setText(aiScore);
@@ -145,9 +148,8 @@ function checkForScore()
 		ball.setVelocityX(-ballConfig.velocityX);
 		ball.setVelocityY(ballConfig.velocityY);
 	}
-	if(ball.x >= config.width - 10)
+	if(ball.x >= config.width - 60)
 	{
-		
 		playerScore++;
 		playerScoreText.setText(playerScore);
 		
