@@ -111,11 +111,11 @@ function updateAI()
 {	
 	if(ball.y > ai.y)
 	{
-		ai.setVelocityY(200);
+		ai.setVelocityY(300);
 	}
 	else if(ball.y < ai.y)
 	{
-		ai.setVelocityY(-200);
+		ai.setVelocityY(-300);
 	}
 	else
 	{
