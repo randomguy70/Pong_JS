@@ -1,6 +1,6 @@
 var config = {
 	type: Phaser.AUTO,
-	width: 900,
+	width: 800,
 	height: 700,
 	backgroundColor: 0x000000,
 	
@@ -28,6 +28,12 @@ var ball;
 var playerScore = 0;
 var aiScore = 0;
 
+var playerScoreText;
+var aiScoreText;
+
+var playerWon = false;
+var aiWon = false;
+
 var cursors;
 
 var paddle = {
@@ -41,7 +47,6 @@ var playerConfig = {
 	startingY: (config.height / 2) - (paddle.height / 2),
 	velocityX: 0,
 	velocityY: 0,
-	scoreText: '',
 }
 
 var aiConfig = {
@@ -82,6 +87,8 @@ function create()
 	this.physics.add.collider(player, ball);
 	this.physics.add.collider(ball, ai);
 	
+	playerScoreText = this.add.text(config.width/3, config.height / 3, '0', { fontSize: '64px', fill: '#fff' });
+	aiScoreText = this.add.text(config.width*2/3, config.height*2 / 3, '0', { fontSize: '64px', fill: '#fff' });
 	cursors = this.input.keyboard.createCursorKeys();
 }
 
@@ -89,6 +96,7 @@ function update()
 {
 	updatePlayer();
 	updateAI();
+	checkForScore();
 }
 
 function updatePlayer()
@@ -120,5 +128,37 @@ function updateAI()
 	else
 	{
 		ai.setVelocityY(0);
+	}
+}
+
+function checkForScore()
+{
+	if(ball.x <= 30)
+	{
+		aiScore++;
+		ball.x = ballConfig.startingX;
+		ball.y = ballConfig.startingY;
+		ball.setVelocityX(ballConfig.velocityX);
+		ball.setVelocityY(ballConfig.velocityY);
+	}
+	if(ball.x >= config.width - 10)
+	{
+		playerScore++;
+		ball.x = ballConfig.startingX;
+		ball.y = ballConfig.startingY;
+		ball.setVelocityX(ballConfig.velocityX);
+		ball.setVelocityY(ballConfig.velocityY);
+	}
+}
+
+function checkForWin()
+{
+	if(aiScore >= 3)
+	{
+		aiWon = true;
+	}
+	else if(playerScore >= 3)
+	{
+		playerWon = true;
 	}
 }
