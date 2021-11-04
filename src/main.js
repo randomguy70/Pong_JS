@@ -66,8 +66,8 @@ var ballConfig = {
 
 function preload()
 {
-	this.load.image('ball', '../public/assets/ball.png');
-	this.load.image('paddle', '../public/assets/paddle.png');
+	this.load.image('ball', '/public/assets/ball.png');
+	this.load.image('paddle', '/public/assets/paddle.png');
 }
 
 function create()
