@@ -64,10 +64,11 @@ var ballConfig = {
 	startingY: (config.height / 2) - (30 / 2),
 }
 
+import './public/assets/ball.png'
 function preload()
 {
-	this.load.image('ball', 'public/assets/ball.png');
-	this.load.image('paddle', 'public/assets/paddle.png');
+	this.load.image('ball', 'assets/ball.png');
+	this.load.image('paddle', 'assets/paddle.png');
 }
 
 function create()
