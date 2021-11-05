@@ -145,8 +145,21 @@ function updatePlayer()
 
 function updateAI()
 {
-	let difference = Math.sqrt(Math.abs(ball.y - ai.y)) + 4;
+	let difference = 1.5 * Math.sqrt(Math.abs(ball.y - ai.y) + 40);
+	let speed;
 	
+	if (difference > 400)
+	{
+		speed = 400;
+	}
+	else if (difference < 100 && difference > 10)
+	{
+		speed = 50;
+	}
+	else 
+	{
+		speed = difference + 20;
+	}
 	if(ball.y > ai.y)
 	{
 		ai.setVelocityY(26*difference);
