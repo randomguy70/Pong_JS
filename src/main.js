@@ -1,5 +1,3 @@
-const { Scene } = require("phaser");
-
 var config = {
 	type: Phaser.AUTO,
 	width: 1000,
@@ -14,7 +12,7 @@ var config = {
 		}
 	},
 	
-	scene: [SceneOne]
+	scene: [SceneOne, SceneTwo]
 };
 
 var game = new Phaser.Game(config);
