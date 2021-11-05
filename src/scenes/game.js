@@ -1,2 +1,150 @@
-import Phaser from "phaser";
+var SceneOne = new Phaser.Class(
+{
+	extends: Phaser.Scene(),
+	
+	initialize: function()
+	{
+		Phaser.Scene.call(this, {"key": "SceneOne"});
+	},
+	
+	preload: function()
+	{
+		this.load.image('ball', './assets/ball.png');
+		this.load.image('paddle', './assets/paddle.png');
+		this.load.image('horiz_border', './assets/horizontal_border.png');
+	},
+	
+	create: function()
+	{
+		player = this.physics.add.sprite(playerConfig.startingX, playerConfig.	startingY, 'paddle').setOrigin(0, 0).setImmovable();
+		ai = this.physics.add.sprite(aiConfig.startingX, aiConfig.startingY, 	'paddle').setOrigin(0, 0).setImmovable();
+		ball = this.physics.add.sprite(ballConfig.startingX, ballConfig.startingY, 	'ball').setOrigin(0, 0);
+		
+		player.setCollideWorldBounds(true);
+		ai.setCollideWorldBounds(true);
+		ball.setCollideWorldBounds(true);
+		
+		this.physics.add.collider(player, ball);
+		
+		this.physics.add.collider(ai, ball);
+		
+		initialiseBall();
+		
+		playerScoreText = this.add.text(config.width/3, config.height / 3, '0', { 	fontSize: '64px', fill: '#fff' });
+		aiScoreText = this.add.text(config.width*2/3, config.height*2 / 3, '0', { 	fontSize: '64px', fill: '#fff' });
+		
+		cursors = this.input.keyboard.createCursorKeys();
+	},
 
+	update: function()
+	{
+		updatePlayer();
+		updateAI();
+		checkForScore();
+	},
+	
+	initialiseBall: function() 
+	{
+		ball.x = config.width / 2;
+		ball.y = Phaser.Math.Between(25, config.height - (20 + 5));
+		
+		ball.setBounce(1);
+		
+		var goingUp = Phaser.Math.Between(0, 1);
+		var goingRight = Phaser.Math.Between(0, 1);
+		
+		if(goingUp === 1)
+		{
+			ball.setVelocityY(ballConfig.velocityY);
+		}
+		else
+		{
+			ball.setVelocityY(- ballConfig.velocityY);
+		}
+		if(goingRight ===1)
+		{
+			ball.setVelocityX(ballConfig.velocityX);
+		}
+		else
+		{
+			ball.setVelocityX(- ballConfig.velocityX);
+		}
+	},
+	
+	updatePlayer: function()
+	{
+		if(cursors.up.isDown)
+		{
+			player.setVelocityY(-300);
+		}
+		else if(cursors.down.isDown)
+		{
+			player.setVelocityY(300);
+		}
+		else
+		{
+			player.setVelocityY(0);
+		}
+	},
+	
+	updateAI: function()
+	{
+		let difference = 1.5 * Math.sqrt(Math.abs(ball.y - ai.y) + 40);
+		let speed;
+		
+		if (difference > 400)
+		{
+			speed = 400;
+		}
+		else if (difference < 100 && difference > 10)
+		{
+			speed = 50;
+		}
+		else 
+		{
+			speed = difference + 20;
+		}
+		if(ball.y > ai.y)
+		{
+			ai.setVelocityY(26*difference);
+		}
+		else if(ball.y < ai.y)
+		{
+			ai.setVelocityY(-26*difference);
+		}
+		else
+		{
+			ai.setVelocityY(0);
+		}
+	},
+
+	checkForScore: function()
+	{
+		if(ball.x < 1)
+		{
+			aiScore++;
+			aiScoreText.setText(aiScore);
+			
+			initialiseBall();
+		}
+		if(ball.x > (config.width - 41))
+		{
+			playerScore++;
+			playerScoreText.setText(playerScore);
+			
+			initialiseBall();
+		}
+	},
+	
+	checkForWin: function()
+	{
+		if(aiScore >= 3)
+		{
+			aiWon = true;
+		}
+		else if(playerScore >= 3)
+		{
+			playerWon = true;
+		}
+	},
+});
