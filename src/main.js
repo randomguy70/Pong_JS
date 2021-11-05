@@ -89,6 +89,7 @@ function create()
 	
 	playerScoreText = this.add.text(config.width/3, config.height / 3, '0', { fontSize: '64px', fill: '#fff' });
 	aiScoreText = this.add.text(config.width*2/3, config.height*2 / 3, '0', { fontSize: '64px', fill: '#fff' });
+	
 	cursors = this.input.keyboard.createCursorKeys();
 }
 
