@@ -1,3 +1,48 @@
+import config from '../main'
+
+var player;
+var ai;
+var ball;
+
+var playerScore = 0;
+var aiScore = 0;
+
+var playerScoreText;
+var aiScoreText;
+
+var playerWon = false;
+var aiWon = false;
+
+var cursors;
+
+var paddle = {
+	width: 20,
+	height: 100,
+	sprite: 'paddle',
+}
+
+var playerConfig = {
+	startingX: 20,
+	startingY: (config.height / 2) - (paddle.height / 2),
+	velocityX: 0,
+	velocityY: 0,
+}
+
+var aiConfig = {
+	startingX: config.width - (50),
+	startingY: (config.height / 2) - (paddle.height / 2),
+	velocityX: 0,
+	velocityY: 0,
+}
+
+var ballConfig = {
+	velocityX: 400,
+	velocityY: 400,
+	
+	startingX: (config.width / 2) - (30 / 2),
+	startingY: (config.height / 2) - (30 / 2),
+}
+
 var SceneOne = new Phaser.Class(
 {
 	extends: Phaser.Scene(),
@@ -18,7 +63,7 @@ var SceneOne = new Phaser.Class(
 	{
 		player = this.physics.add.sprite(playerConfig.startingX, playerConfig.	startingY, 'paddle').setOrigin(0, 0).setImmovable();
 		ai = this.physics.add.sprite(aiConfig.startingX, aiConfig.startingY, 	'paddle').setOrigin(0, 0).setImmovable();
-		ball = this.physics.add.sprite(ballConfig.startingX, ballConfig.startingY, 	'ball').setOrigin(0, 0);
+		ball = this.physics.add.sprite(ballConfig.startingX, ballConfig.startingY, 'ball').setOrigin(0, 0);
 		
 		player.setCollideWorldBounds(true);
 		ai.setCollideWorldBounds(true);
