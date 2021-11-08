@@ -13,7 +13,7 @@ var config = {
 		arcade: {
 			gravity: { y: 0, x: 0 },
 			debug: true
-		}
+		}h
 	},
 	
 	scenes: [ EndScreen ]
