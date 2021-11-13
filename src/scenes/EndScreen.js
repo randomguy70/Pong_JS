@@ -1,7 +1,7 @@
-class EndScreen extends Phaser.Scene {
+class endScreen extends Phaser.Scene {
 	
 	constructor() {
-		super({ key: 'EndScreen' });
+		super({ key: 'endScreen' });
 	}
 	
 	preload() {
@@ -16,3 +16,5 @@ class EndScreen extends Phaser.Scene {
 	update() {
 	}
 }
+
+export default endScreen;

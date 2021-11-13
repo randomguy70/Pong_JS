@@ -1,4 +1,22 @@
-import EndScreen from './scenes/EndScreen'
+import TitleScene from "./scenes/titleScreen";
+
+// class TitleScene extends Phaser.Scene {
+
+// 	constructor() {
+// 		super({key:'titleScene'});
+// 	}
+
+// 	preload() {
+// 		// this.load.image('background', 'images/background.jpg');
+// 	}
+
+// 	create() {
+		
+// 		var text = this.add.text(100,100, 'Welcome to my game');
+// 	}
+// }
+
+var titleScene = new TitleScene();
 
 var config = {
 	type: Phaser.AUTO,
@@ -13,10 +31,16 @@ var config = {
 		arcade: {
 			gravity: { y: 0, x: 0 },
 			debug: true
-		}h
+		}
 	},
 	
-	scenes: [ EndScreen ]
+	scenes: [ titleScene ]
 };
 
 var game = new Phaser.Game(config);
+
+game.scene.add('titleScene', titleScene);
+
+game.scene.start('titleScene');
+
+console.log('hello');

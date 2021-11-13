@@ -193,3 +193,5 @@ var SceneOne = new Phaser.Class(
 		}
 	},
 });
+
+export default Game
