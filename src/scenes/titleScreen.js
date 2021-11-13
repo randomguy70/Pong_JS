@@ -19,8 +19,8 @@ class TitleScene extends Phaser.Scene {
 
 	create() {
 		
-		this.add.text(config.width / 2, config.height / 4, "Pong", {fontSize: 65}).setOrigin(0.5);
-		this.add.text(config.width / 2, config.height / 4 + 60, "cloned by Randomguy", {fontSize: 20}).setOrigin(.5);
+		this.add.text(config.width / 2, config.height / 4, "Pong", {fontSize: 65, color: '#fff'}).setOrigin(0.5);
+		this.add.text(config.width / 2, config.height / 4 + 60, "cloned by Randomguy", {fontSize: 20, color: '#fff'}).setOrigin(.5);
 	}
 }
 
