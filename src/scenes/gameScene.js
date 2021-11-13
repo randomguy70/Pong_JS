@@ -93,111 +93,111 @@ class GameScene extends Phaser.Scene
 		updateAI();
 		checkForScore();
 	}
+};
+
+function initialiseBall () 
+{
+	ball.x = config.width / 2;
+	ball.y = Phaser.Math.Between(25, config.height - (20 + 5));
 	
-	initialiseBall () 
+	ball.setBounce(1);
+	
+	var goingUp = Phaser.Math.Between(0, 1);
+	var goingRight = Phaser.Math.Between(0, 1);
+	
+	if(goingUp === 1)
 	{
-		ball.x = config.width / 2;
-		ball.y = Phaser.Math.Between(25, config.height - (20 + 5));
-		
-		ball.setBounce(1);
-		
-		var goingUp = Phaser.Math.Between(0, 1);
-		var goingRight = Phaser.Math.Between(0, 1);
-		
-		if(goingUp === 1)
-		{
-			ball.setVelocityY(ballConfig.velocityY);
-		}
-		else
-		{
-			ball.setVelocityY(- ballConfig.velocityY);
-		}
-		if(goingRight ===1)
-		{
-			ball.setVelocityX(ballConfig.velocityX);
-		}
-		else
-		{
-			ball.setVelocityX(- ballConfig.velocityX);
-		}
+		ball.setVelocityY(ballConfig.velocityY);
 	}
-	
-	updatePlayer ()
+	else
 	{
-		if(cursors.up.isDown)
-		{
-			player.setVelocityY(-300);
-		}
-		else if(cursors.down.isDown)
-		{
-			player.setVelocityY(300);
-		}
-		else
-		{
-			player.setVelocityY(0);
-		}
+		ball.setVelocityY(- ballConfig.velocityY);
 	}
-	
-	updateAI ()
+	if(goingRight ===1)
 	{
-		let difference = 1.5 * Math.sqrt(Math.abs(ball.y - ai.y) + 40);
-		let speed;
-		
-		if (difference > 400)
-		{
-			speed = 400;
-		}
-		else if (difference < 100 && difference > 10)
-		{
-			speed = 50;
-		}
-		else 
-		{
-			speed = difference + 20;
-		}
-		if(ball.y > ai.y)
-		{
-			ai.setVelocityY(26*difference);
-		}
-		else if(ball.y < ai.y)
-		{
-			ai.setVelocityY(-26*difference);
-		}
-		else
-		{
-			ai.setVelocityY(0);
-		}
+		ball.setVelocityX(ballConfig.velocityX);
+	}
+	else
+	{
+		ball.setVelocityX(- ballConfig.velocityX);
+	}
+}
+
+function updatePlayer ()
+{
+	if(cursors.up.isDown)
+	{
+		player.setVelocityY(-300);
+	}
+	else if(cursors.down.isDown)
+	{
+		player.setVelocityY(300);
+	}
+	else
+	{
+		player.setVelocityY(0);
+	}
+}
+
+function updateAI ()
+{
+	let difference = 1.5 * Math.sqrt(Math.abs(ball.y - ai.y) + 40);
+	let speed;
+	
+	if (difference > 400)
+	{
+		speed = 400;
+	}
+	else if (difference < 100 && difference > 10)
+	{
+		speed = 50;
+	}
+	else 
+	{
+		speed = difference + 20;
+	}
+	if(ball.y > ai.y)
+	{
+		ai.setVelocityY(26*difference);
+	}
+	else if(ball.y < ai.y)
+	{
+		ai.setVelocityY(-26*difference);
+	}
+	else
+	{
+		ai.setVelocityY(0);
+	}
 	}
 
-	checkForScore ()
+function checkForScore ()
+{
+	if(ball.x < 1)
 	{
-		if(ball.x < 1)
-		{
-			aiScore++;
-			aiScoreText.setText(aiScore);
-			
-			initialiseBall();
-		}
-		if(ball.x > (config.width - 41))
-		{
-			playerScore++;
-			playerScoreText.setText(playerScore);
-			
-			initialiseBall();
-		}
+		aiScore++;
+		aiScoreText.setText(aiScore);
+		
+		initialiseBall();
 	}
-	
-	checkForWin ()
+	if(ball.x > (config.width - 41))
 	{
-		if(aiScore >= 3)
-		{
-			aiWon = true;
-		}
-		else if(playerScore >= 3)
-		{
-			playerWon = true;
-		}
+		playerScore++;
+		playerScoreText.setText(playerScore);
+		
+		initialiseBall();
 	}
-};
+}
+
+function checkForWin ()
+{
+	if(aiScore >= 3)
+	{
+		aiWon = true;
+	}
+	else if(playerScore >= 3)
+	{
+		playerWon = true;
+	}
+}
 
 export default GameScene;

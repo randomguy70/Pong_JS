@@ -19,7 +19,7 @@ class TitleScene extends Phaser.Scene
 	}
 
 	preload() {
-		this.load.image('button', '../assets/button.png');
+		this.load.image('button', './assets/button.png');
 	}
 
 	create() {

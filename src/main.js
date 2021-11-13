@@ -1,5 +1,5 @@
-import TitleScene from "./scenes/titleScreen.js";
-import GameScene from "./scenes/game.js";
+import TitleScene from "./scenes/titleScene.js";
+import GameScene from "./scenes/gameScene.js";
 
 var titleScene = new TitleScene();
 var gameScene = new GameScene();
