@@ -42,5 +42,3 @@ var game = new Phaser.Game(config);
 game.scene.add('titleScene', titleScene);
 
 game.scene.start('titleScene');
-
-console.log('hello');
