@@ -56,10 +56,12 @@ class GameScene extends Phaser.Scene
 	
 	constructor() {
 		super({key:'gameScene'});
+		console.log('constructed');
 	}
 	
 	preload ()
 	{
+		console.log('preloaded');
 		this.load.image('ball', './assets/ball.png');
 		this.load.image('paddle', './assets/paddle.png');
 		this.load.image('horiz_border', './assets/horizontal_border.png');
@@ -67,6 +69,7 @@ class GameScene extends Phaser.Scene
 	
 	create ()
 	{
+		console.log('created');
 		player = this.physics.add.sprite(playerConfig.startingX, playerConfig.	startingY, 'paddle').setOrigin(0, 0).setImmovable();
 		ai = this.physics.add.sprite(aiConfig.startingX, aiConfig.startingY, 	'paddle').setOrigin(0, 0).setImmovable();
 		ball = this.physics.add.sprite(ballConfig.startingX, ballConfig.startingY, 'ball').setOrigin(0, 0);
@@ -89,6 +92,7 @@ class GameScene extends Phaser.Scene
 
 	update ()
 	{
+		console.log('updated');
 		updatePlayer();
 		updateAI();
 		checkForScore();
@@ -125,6 +129,7 @@ function initialiseBall ()
 
 function updatePlayer ()
 {
+	console.log('updated player');
 	if(cursors.up.isDown)
 	{
 		player.setVelocityY(-300);
