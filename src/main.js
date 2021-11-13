@@ -2,7 +2,7 @@ import TitleScene from "./scenes/titleScreen.js";
 
 var titleScene = new TitleScene();
 
-var config = {
+const config = {
 	type: Phaser.AUTO,
 	pixelArt: false,
 	roundPixels: false,
