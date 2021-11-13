@@ -1,4 +1,12 @@
-import config from '../main'
+const config =
+{
+	type: Phaser.AUTO,
+	pixelArt: false,
+	roundPixels: false,
+	width: 1000,
+	height: 700,
+	backgroundColor: 0x000000,
+};
 
 var player;
 var ai;
@@ -43,23 +51,21 @@ var ballConfig = {
 	startingY: (config.height / 2) - (30 / 2),
 }
 
-var SceneOne = new Phaser.Class(
+class GameScene extends Phaser.Scene
 {
-	extends: Phaser.Scene(),
 	
-	initialize: function()
-	{
-		Phaser.Scene.call(this, {"key": "SceneOne"});
-	},
+	constructor() {
+		super({key:'gameScene'});
+	}
 	
-	preload: function()
+	preload ()
 	{
 		this.load.image('ball', './assets/ball.png');
 		this.load.image('paddle', './assets/paddle.png');
 		this.load.image('horiz_border', './assets/horizontal_border.png');
-	},
+	}
 	
-	create: function()
+	create ()
 	{
 		player = this.physics.add.sprite(playerConfig.startingX, playerConfig.	startingY, 'paddle').setOrigin(0, 0).setImmovable();
 		ai = this.physics.add.sprite(aiConfig.startingX, aiConfig.startingY, 	'paddle').setOrigin(0, 0).setImmovable();
@@ -79,16 +85,16 @@ var SceneOne = new Phaser.Class(
 		aiScoreText = this.add.text(config.width*2/3, config.height*2 / 3, '0', { 	fontSize: '64px', fill: '#fff' });
 		
 		cursors = this.input.keyboard.createCursorKeys();
-	},
+	}
 
-	update: function()
+	update ()
 	{
 		updatePlayer();
 		updateAI();
 		checkForScore();
-	},
+	}
 	
-	initialiseBall: function() 
+	initialiseBall () 
 	{
 		ball.x = config.width / 2;
 		ball.y = Phaser.Math.Between(25, config.height - (20 + 5));
@@ -114,9 +120,9 @@ var SceneOne = new Phaser.Class(
 		{
 			ball.setVelocityX(- ballConfig.velocityX);
 		}
-	},
+	}
 	
-	updatePlayer: function()
+	updatePlayer ()
 	{
 		if(cursors.up.isDown)
 		{
@@ -130,9 +136,9 @@ var SceneOne = new Phaser.Class(
 		{
 			player.setVelocityY(0);
 		}
-	},
+	}
 	
-	updateAI: function()
+	updateAI ()
 	{
 		let difference = 1.5 * Math.sqrt(Math.abs(ball.y - ai.y) + 40);
 		let speed;
@@ -161,9 +167,9 @@ var SceneOne = new Phaser.Class(
 		{
 			ai.setVelocityY(0);
 		}
-	},
+	}
 
-	checkForScore: function()
+	checkForScore ()
 	{
 		if(ball.x < 1)
 		{
@@ -179,9 +185,9 @@ var SceneOne = new Phaser.Class(
 			
 			initialiseBall();
 		}
-	},
+	}
 	
-	checkForWin: function()
+	checkForWin ()
 	{
 		if(aiScore >= 3)
 		{
@@ -191,7 +197,7 @@ var SceneOne = new Phaser.Class(
 		{
 			playerWon = true;
 		}
-	},
-});
+	}
+};
 
-export default Game
+export default GameScene;

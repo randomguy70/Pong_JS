@@ -1,6 +1,8 @@
 import TitleScene from "./scenes/titleScreen.js";
+import GameScene from "./scenes/game.js";
 
 var titleScene = new TitleScene();
+var gameScene = new GameScene();
 
 const config = {
 	type: Phaser.AUTO,
@@ -18,7 +20,7 @@ const config = {
 		}
 	},
 	
-	scenes: [ titleScene ]
+	scenes: [ titleScene, gameScene]
 };
 
 var game = new Phaser.Game(config);
