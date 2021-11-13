@@ -28,20 +28,18 @@ class TitleScene extends Phaser.Scene
 		this.add.text(config.width / 2, config.height / 4 + 60, "cloned by Randomguy", {fontSize: 20, color: '#fff'}).setOrigin(.5);
 				
 		playButton = this.add.image(config.width / 2, config.height / 4 + 120, 'button');
+		
 		this.add.text(config.width / 2, config.height / 4 + 120, 'Play', {fontSize: 25}).setOrigin(0.5);
 		
+		playButton.setInteractive();
 		
+		playButton.on('pointerdown', () => {this.scene.start('gameScene');});
 	}
 }
 
-function over ()
+function playOver ()
 {
-	
-}
-
-function playIsClicked ()
-{
-	
+	console.log('it worked!')
 }
 
 export default TitleScene;
