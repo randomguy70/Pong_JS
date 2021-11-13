@@ -1,4 +1,4 @@
-import TitleScene from "./scenes/titleScreen";
+import { TitleScene } from "./scenes/titleScene.js";
 
 // class TitleScene extends Phaser.Scene {
 
