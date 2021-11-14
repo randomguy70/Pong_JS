@@ -18,9 +18,6 @@ var aiScore = 0;
 var playerScoreText;
 var aiScoreText;
 
-var playerWon = false;
-var aiWon = false;
-
 var cursors;
 
 var paddle = {
@@ -50,6 +47,8 @@ var ballConfig = {
 	startingX: (config.width / 2) - (30 / 2),
 	startingY: (config.height / 2) - (30 / 2),
 }
+
+var timedEvent;
 
 class GameScene extends Phaser.Scene
 {
@@ -183,15 +182,15 @@ class GameScene extends Phaser.Scene
 		if(aiScore >= 3)
 		{
 			aiScoreText.setText("WON");
-			aiWon = true;
 			console.log('ai won \n return to titleScene');
+			
 			this.scene.start('titleScene');
 		}
 		else if(playerScore >= 3)
 		{
 			playerScoreText.setText("WON");
-			playerWon = true;
 			console.log('player won \n return to titleScene');
+			
 			this.scene.start('titleScene');
 		}
 	}
