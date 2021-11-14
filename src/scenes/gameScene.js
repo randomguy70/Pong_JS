@@ -56,7 +56,7 @@ class GameScene extends Phaser.Scene
 	
 	constructor() {
 		super({key:'gameScene'});
-		console.log('constructed');
+		console.log('constructed gameScene');
 	}
 	
 	preload ()
@@ -146,28 +146,25 @@ function updatePlayer ()
 
 function updateAI ()
 {
-	let difference = 1.5 * Math.sqrt(Math.abs(ball.y - ai.y) + 40);
-	let speed;
+	let difference = 1.5 * Math.sqrt(Math.abs(ball.y - ai.y) + 50);
+	let speed = difference + 20;
 	
 	if (difference > 400)
 	{
 		speed = 400;
 	}
-	else if (difference < 100 && difference > 10)
+	else if (difference < 100 && difference >= 10)
 	{
-		speed = 50;
+		speed = 100;
 	}
-	else 
-	{
-		speed = difference + 20;
-	}
+	
 	if(ball.y > ai.y)
 	{
-		ai.setVelocityY(26*difference);
+		ai.setVelocityY(difference);
 	}
 	else if(ball.y < ai.y)
 	{
-		ai.setVelocityY(-26*difference);
+		ai.setVelocityY(-difference);
 	}
 	else
 	{
