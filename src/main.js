@@ -1,10 +1,8 @@
 import TitleScene from "./scenes/titleScene.js";
 import GameScene from "./scenes/gameScene.js";
-import StatsScene from "./scenes/statsScene.js";
 
 var titleScene = new TitleScene();
 var gameScene = new GameScene();
-var statsScene = new StatsScene();
 
 const config = {
 	type: Phaser.AUTO,
@@ -18,17 +16,16 @@ const config = {
 		default: 'arcade',
 		arcade: {
 			gravity: { y: 0, x: 0 },
-			debug: true
+			debug: false
 		}
 	},
 	
-	scenes: [ titleScene, gameScene, statsScene]
+	scenes: [ titleScene, gameScene ]
 };
 
 var game = new Phaser.Game(config);
 
 game.scene.add('titleScene', titleScene);
 game.scene.add('gameScene', gameScene);
-game.scene.add('statsScene', statsScene);
 
 game.scene.start('titleScene');
