@@ -20,27 +20,31 @@ var aiScoreText;
 
 var cursors;
 
-var paddle = {
+var paddle =
+{
 	width: 20,
 	height: 100,
 	sprite: 'paddle',
 }
 
-var playerConfig = {
+var playerConfig =
+{
 	startingX: 20,
 	startingY: (config.height / 2) - (paddle.height / 2),
 	velocityX: 0,
 	velocityY: 0,
 }
 
-var aiConfig = {
+var aiConfig =
+{
 	startingX: config.width - (50),
 	startingY: (config.height / 2) - (paddle.height / 2),
 	velocityX: 0,
 	velocityY: 0,
 }
 
-var ballConfig = {
+var ballConfig =
+{
 	velocityX: 400,
 	velocityY: 400,
 	
@@ -48,9 +52,12 @@ var ballConfig = {
 	startingY: (config.height / 2) - (30 / 2),
 }
 
+var timedEvent;
+
 class GameScene extends Phaser.Scene
 {
-	constructor() {
+	constructor()
+	{
 		super({key:'gameScene'});
 		console.log('constructed gameScene');
 		
@@ -129,11 +136,11 @@ class GameScene extends Phaser.Scene
 	{
 		if(cursors.up.isDown)
 		{
-			player.setVelocityY(-300);
+			player.setVelocityY(-400);
 		}
 		else if(cursors.down.isDown)
 		{
-			player.setVelocityY(300);
+			player.setVelocityY(400);
 		}
 		else
 		{
@@ -143,7 +150,7 @@ class GameScene extends Phaser.Scene
 	
 	updateAI ()
 	{
-		let difference = 350 + Math.sqrt( 1.5 * Math.abs(ball.y - ai.y));
+		let difference = 350 + Math.sqrt( Math.abs( ball.y - ai.y ) );
 		
 		if(ball.y > ai.y)
 		{
@@ -184,21 +191,23 @@ class GameScene extends Phaser.Scene
 			aiScoreText.setText("WON");
 			console.log('ai won \n return to titleScene');
 			
-			playerScore = 0;
-			aiScore = 0;
-			
-			this.scene.start('titleScene');
+			timedEvent = this.time.delayedCall(3000, this.newGame, [], this);
 		}
 		else if(playerScore >= 3)
 		{
 			playerScoreText.setText("WON");
 			console.log('player won \n return to titleScene');
 			
-			playerScore = 0;
-			aiScore = 0;
-			
-			this.scene.start('titleScene');
+			timedEvent = this.time.delayedCall(3000, this.newGame, [], this);
 		}
+	}
+	
+	newGame ()
+	{
+		playerScore = 0;
+		aiScore = 0;
+		
+		this.scene.start('titleScene');
 	}
 };
 
