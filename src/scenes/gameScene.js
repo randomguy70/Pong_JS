@@ -48,14 +48,14 @@ var ballConfig = {
 	startingY: (config.height / 2) - (30 / 2),
 }
 
-var timedEvent;
-
 class GameScene extends Phaser.Scene
 {
-	
 	constructor() {
 		super({key:'gameScene'});
 		console.log('constructed gameScene');
+		
+		aiScore = 0;
+		playerScore = 0;
 	}
 	
 	preload ()
@@ -184,12 +184,18 @@ class GameScene extends Phaser.Scene
 			aiScoreText.setText("WON");
 			console.log('ai won \n return to titleScene');
 			
+			playerScore = 0;
+			aiScore = 0;
+			
 			this.scene.start('titleScene');
 		}
 		else if(playerScore >= 3)
 		{
 			playerScoreText.setText("WON");
 			console.log('player won \n return to titleScene');
+			
+			playerScore = 0;
+			aiScore = 0;
 			
 			this.scene.start('titleScene');
 		}
