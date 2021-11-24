@@ -188,17 +188,15 @@ class GameScene extends Phaser.Scene
 	{
 		if(aiScore >= 3)
 		{
-			aiScoreText.setText("WON");
 			console.log('ai won \n return to titleScene');
 			
-			timedEvent = this.time.delayedCall(3000, this.newGame, [], this);
+			this.newGame()
 		}
 		else if(playerScore >= 3)
 		{
-			playerScoreText.setText("WON");
 			console.log('player won \n return to titleScene');
 			
-			timedEvent = this.time.delayedCall(3000, this.newGame, [], this);
+			this.newGame()
 		}
 	}
 	
