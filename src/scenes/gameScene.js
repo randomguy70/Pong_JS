@@ -76,6 +76,8 @@ class GameScene extends Phaser.Scene
 	create ()
 	{
 		console.log('created');
+		
+		// sprites / entities
 		player = this.physics.add.sprite(playerConfig.startingX, playerConfig.	startingY, 'paddle').setOrigin(0, 0).setImmovable();
 		ai = this.physics.add.sprite(aiConfig.startingX, aiConfig.startingY, 	'paddle').setOrigin(0, 0).setImmovable();
 		ball = this.physics.add.sprite(ballConfig.startingX, ballConfig.startingY, 'ball').setOrigin(0, 0);
@@ -90,6 +92,18 @@ class GameScene extends Phaser.Scene
 		
 		this.initialiseBall();
 		
+		// rectangles for halfway mark
+		for(var i = 12; i < config.height; i += config.height / 14.5)
+		{
+			var x = config.width / 2;
+			var y = i;
+			var width = 20;
+			var height = 20;
+			var color = 0xffffff;
+			this.add.rectangle(x, y, width, height, color).setOrigin(.5);
+		}
+		
+		// scores
 		playerScoreText = this.add.text(config.width/3, config.height / 3, '0', { 	fontSize: '64px', fill: '#fff' });
 		aiScoreText = this.add.text(config.width*2/3, config.height*2 / 3, '0', { 	fontSize: '64px', fill: '#fff' });
 		
